@@ -1,0 +1,114 @@
+24399 Smart Check FL - UI Test Approach
+
+24400 Integrate java tests with vsts
+ 
+ 
+INNER JOIN :
+SELECT [DBTestShed].[dbo].[ApplicantProfile].ApplicantProfileId, [DBTestShed].[dbo].[ApplicantProfile].CustomerId, [DBTestShed].[dbo].[ApplicantProfile].Income, [DBTestShed].[dbo].[CustomerBaseData].BuildingNumber, [DBTestShed].[dbo].[CustomerBaseData].Firstname, [DBTestShed].[dbo].[CustomerBaseData].Surname
+FROM [DBTestShed].[dbo].[ApplicantProfile]
+INNER JOIN [DBTestShed].[dbo].[CustomerBaseData]
+ON [DBTestShed].[dbo].[ApplicantProfile].CustomerId = [DBTestShed].[dbo].[CustomerBaseData].CustomerId
+WHERE [DBTestShed].[dbo].[ApplicantProfile].CustomerId ='4' 
+AND [DBTestShed].[dbo].[CustomerBaseData].BuildingNumber ='15'
+ORDER BY [DBTestShed].[dbo].[ApplicantProfile].ApplicantProfileId DESC;
+
+LEFT JOIN :
+SELECT [DBTestShed].[dbo].[ApplicantProfile].ApplicantProfileId, [DBTestShed].[dbo].[ApplicantProfile].CustomerId, [DBTestShed].[dbo].[ApplicantProfile].Income, [DBTestShed].[dbo].[ApplicantProfile].BankAccountName,[DBTestShed].[dbo].[ApplicantProfile].EmploymentStatus, [DBTestShed].[dbo].[CustomerBaseData].BuildingNumber, [DBTestShed].[dbo].[CustomerBaseData].Firstname, [DBTestShed].[dbo].[CustomerBaseData].Surname, [DBTestShed].[dbo].[CustomerBaseData].TownCity
+FROM [DBTestShed].[dbo].[ApplicantProfile]
+LEFT JOIN [DBTestShed].[dbo].[CustomerBaseData]
+ON [DBTestShed].[dbo].[ApplicantProfile].CustomerId = [DBTestShed].[dbo].[CustomerBaseData].CustomerId;
+
+Explanation :
+[DBTestShed].[dbo].[ApplicantProfile].ApplicantProfileId ---> DATABASENAME.TABLENAME.COLUMNNAME
+DATABASENAME ---> [DBTestShed]
+TABLENAME ---> [dbo].[ApplicantProfile]
+COLUMNNAME ---> ApplicantProfileId
+
+
+
+projectSatsumaMaven/target/surefire-reports/*,projectSatsumaMaven/target/logs/*,
+projectSatsumaMaven/target/surefire-reports/screenshots/*.png,projectSatsumaMaven/target/surefire-reports/html/*
+
+
+
+SELECT  TOP 100
+APT.SRNM,APT.FRNM,APT.DT_OF_BRTH,
+APP.APPLCTN_ID,
+SPARE.INPT_STRNG_L40_VR_31 [SatsumaUniqueApplicationID], 
+RES.OJ_SRTD_RSN_CD_TBL_1, 
+RES.OJ_SRTD_RSN_CD_TBL_2,
+OH_OTCM_NM [PostEnrichSpareScorecard],
+PA_SCR [PreDipFilterScorecard],
+OG_SCR [PostEnrichSpareScorecardScore],
+O3_SRTD_RSN_CD_TBL_1,
+--O3_SRTD_RSN_CD_TBL_2,
+O3_DCSN_TXT,
+app.applctn_dt,
+app.applctn_tm
+FROM EDA_TENANT1.APPLICATION APP
+LEFT JOIN EDA_TENANT1.APPLICANT APT
+ON APT.IDS_APPLICATION = APP.IDS_APPLICATION
+LEFT JOIN EDA_TENANT1.SPARES SPARE
+ON APP.IDS_APPLICATION = SPARE.IDS_SPARES
+LEFT JOIN EDA_TENANT1.SDS_RESULTS RES
+ON RES.IDS_SDS_RESULTS = APP.IDS_SDS_RESULTS
+WHERE APT.SRNM='pen'
+AND APT.FRNM='pen'
+--AND APT.DT_OF_BRTH='1974-01-19 00:00:00.000'
+ORDER BY APPLCTN_DT desc
+
+--SELECT MAX(IDS_APPLICATION)
+--FROM STK03PowerCurveBPS.EDA_TENANT1.SCEMS_1_7_FBL_APPLCNT_DATA
+
+
+--SELECT MAX(IDS_APPLICATION) 
+--FROM STK02PowerCurveBPS.EDA_TENANT1.SCEMS_1_7_FBL_APPLCNT_DATA
+
+
+
+
+String queryString = "delete from " + entitySearchDb + ".dbo.PersonKeys where id in (select systemid from " + entityHubDb + ".dbo.Links where HubId = (select top 1 hubid from " + entityHubDb + ".dbo.Links where hubid in (select hubid from " + entityHubDb
+					+ ".dbo.Links where SystemCode = 'SearchData' and SystemId in (select id from " + entitySearchDb + ".dbo.PersonKeys where firstname = '" + forename + "' and LastName = '" + surname + "'))) and SystemCode = 'SearchData');delete from " + entityHubDb
+					+ ".dbo.Links where hubid in (select hubid from " + entityHubDb + ".dbo.Links where SystemCode = 'SearchData' and SystemId in (select id from " + entitySearchDb + ".dbo.PersonKeys where firstname = '" + forename + "' and LastName = '" + surname + "'));";
+
+					             
+					
+String queryString = ("UPDATE EDA_TENANT1.APPLICANT  SET PRVDNT_CSTMR_UNQ_ID=null where PRVDNT_CSTMR_UNQ_ID IN (SELECT PRVDNT_CSTMR_UNQ_ID from EDA_TENANT1.APPLICANT where SRNM='" + surname + "' and FRNM='" + forename + "');");
+
+
+
+
+
+
+SELECT  TOP 100
+APT.SRNM,APT.FRNM,APT.DT_OF_BRTH,
+APP.APPLCTN_ID,
+SPARE.INPT_STRNG_L40_VR_31 [SatsumaUniqueApplicationID], 
+RES.OJ_SRTD_RSN_CD_TBL_1, 
+RES.OJ_SRTD_RSN_CD_TBL_2,
+OH_OTCM_NM [PostEnrichSpareScorecard],
+PA_SCR [PreDipFilterScorecard],
+OG_SCR [PostEnrichSpareScorecardScore],
+O3_SRTD_RSN_CD_TBL_1,
+--O3_SRTD_RSN_CD_TBL_2,
+O3_DCSN_TXT,
+app.applctn_dt,
+app.applctn_tm
+FROM EDA_TENANT1.APPLICATION APP
+LEFT JOIN EDA_TENANT1.APPLICANT APT
+ON APT.IDS_APPLICATION = APP.IDS_APPLICATION
+LEFT JOIN EDA_TENANT1.SPARES SPARE
+ON APP.IDS_APPLICATION = SPARE.IDS_SPARES
+LEFT JOIN EDA_TENANT1.SDS_RESULTS RES
+ON RES.IDS_SDS_RESULTS = APP.IDS_SDS_RESULTS
+WHERE APT.SRNM='pen'
+AND APT.FRNM='pen'
+--AND APT.DT_OF_BRTH='1974-01-19 00:00:00.000'
+ORDER BY APPLCTN_DT desc
+
+--SELECT MAX(IDS_APPLICATION)
+--FROM STK03PowerCurveBPS.EDA_TENANT1.SCEMS_1_7_FBL_APPLCNT_DATA
+
+
+--SELECT MAX(IDS_APPLICATION) 
+--FROM STK02PowerCurveBPS.EDA_TENANT1.SCEMS_1_7_FBL_APPLCNT_DATA
